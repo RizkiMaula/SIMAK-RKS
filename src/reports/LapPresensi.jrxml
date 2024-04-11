@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lapPresensi" language="groovy" pageWidth="595" pageHeight="421" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5686cd3a-2516-425a-83a3-a09fde32e786">
+	<property name="ireport.zoom" value="1.9487171000000352"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
+	<parameter name="id_krw" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+    karyawan.nama AS karyawan, 
+    jabatan.nama AS jabatan, SUM(presensi.kehadiran) AS hadir, 
+    (SELECT COUNT(presensi.kehadiran) - SUM(presensi.kehadiran)) AS absen, 
+    (SELECT ROUND(SUM(presensi.kehadiran) / COUNT(presensi.kehadiran) * 100)) AS persentase,
+    logo.image AS logo
+FROM 
+    karyawan 
+JOIN 
+    presensi 
+ON 
+    karyawan.id = presensi.id_karyawan 
+JOIN 
+    jabatan 
+ON 
+    jabatan.id = karyawan.id_jabatan,
+    logo
+WHERE 
+    karyawan.id = $P{id_krw}
+AND
+    logo.id = 1]]>
+	</queryString>
+	<field name="karyawan" class="java.lang.String"/>
+	<field name="jabatan" class="java.lang.String"/>
+	<field name="hadir" class="java.math.BigDecimal"/>
+	<field name="absen" class="java.math.BigDecimal"/>
+	<field name="persentase" class="java.math.BigDecimal"/>
+	<field name="logo" class="java.io.InputStream"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="12" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="146" y="19" width="346" height="32" uuid="78d3f9f4-f1d3-4629-bc06-90b9ba13ca29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Jl. Komodor Halim Perdana Kusuma No.7, RT.4/RW.8, Halim Perdana Kusuma, Kec.Makasar, Kota Administrasi Jakarta Timur
+Telp. 0812-1522-7266
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="146" y="0" width="346" height="19" forecolor="#000000" backcolor="#FFFFFF" uuid="bb1850fa-812e-439c-a160-2d126a4327df"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUMAH KOPI SABIT]]></text>
+			</staticText>
+			<frame>
+				<reportElement positionType="Float" x="82" y="0" width="64" height="55" uuid="89f9455d-fc21-43e5-a3bd-d3939e54b934"/>
+				<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+					<reportElement positionType="Float" x="0" y="0" width="64" height="55" uuid="89dfa3c4-f56b-4049-a188-1e9c5a81913f">
+						<property name="net.sf.jasperreports.export.pdf.tag.h1" value="full"/>
+					</reportElement>
+					<imageExpression><![CDATA[$F{logo}]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="72" y="10" width="420" height="19" uuid="41b95d4d-cd45-42fc-808a-d3a01309ff33"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Presensi Karyawan]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="72" y="3" width="420" height="1" uuid="05279f5a-5ef1-4a64-8283-fb2c59f96b11"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="136" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="72" y="0" width="420" height="23" backcolor="#CCE3F2" uuid="72ac4076-5c9e-4f91-afdf-1c850bf72a89"/>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="72" y="92" width="420" height="23" backcolor="#CCE3F2" uuid="3820e594-ce4f-42f4-b26b-9a204d5e28b7"/>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="72" y="46" width="420" height="23" backcolor="#CCE3F2" uuid="fc56aee3-38fd-4c72-afe8-15895db86033"/>
+			</frame>
+			<staticText>
+				<reportElement x="101" y="0" width="92" height="20" uuid="74546b18-af07-4b7e-8327-9599ca4e99ca"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nama Karyawan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="23" width="92" height="20" uuid="7910e9f2-75a6-42fd-b15d-00bd419c162e"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Jabatan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="46" width="92" height="20" uuid="342e9bb8-c618-46d3-9053-c07baa9dc4f1"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Hadir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="69" width="92" height="20" uuid="bb4dbc88-8369-4816-acd2-77d9e7c447ec"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Absen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="92" width="92" height="20" uuid="0d35a2fa-fa3f-4712-9db6-db3bf3529b3f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Kehadiran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="0" width="22" height="20" uuid="b9d28907-b8f6-4f14-a651-db29ea3a6e9a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="23" width="22" height="20" uuid="7f68fec5-a6c3-4842-ae85-f511af7968b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="46" width="22" height="20" uuid="9a43e2a1-12b3-4bf2-8785-6f7c8ac1ab01"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="69" width="22" height="20" uuid="3e109068-2143-4292-95e0-0444cddec18b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="92" width="22" height="20" uuid="8ad54815-3dcc-455c-8aeb-3024d33efab3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="215" y="0" width="100" height="20" uuid="19ec34f3-a6b4-496a-8fcd-02b409e2d196"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{karyawan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="23" width="100" height="20" uuid="40bbbdb5-df52-4528-bdaa-b2b188faaeda"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{jabatan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="46" width="100" height="20" uuid="25377f80-54df-449f-ad90-f74cf4833e07"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hadir}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="69" width="100" height="20" uuid="ab9aa46d-4f43-4f12-817d-8d7df816edee"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{absen}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="215" y="92" width="100" height="20" uuid="7ffa45c3-af88-4a44-bb70-94a2ba68298b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{persentase}+'%']]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="315" y="80" width="177" height="20" uuid="32d51ce0-1947-45af-9509-74484a92abb9"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[.............................................]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="72" y="0" width="420" height="20" uuid="406a9d24-d08c-4d38-818f-c76eb13ad388"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA['Jakarta, ' + new SimpleDateFormat("dd MMMM yyyy", new Locale("id", "ID")).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="15" splitType="Stretch"/>
+	</summary>
+</jasperReport>
