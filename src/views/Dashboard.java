@@ -308,6 +308,15 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnProduk.setBackground(new java.awt.Color(35, 42, 177));
         btnProduk.setName("produk"); // NOI18N
+        btnProduk.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                btnProdukAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         btnProduk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnProdukMouseClicked(evt);
@@ -781,9 +790,9 @@ public class Dashboard extends javax.swing.JFrame {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 menuTitleAncestorAdded(evt);
             }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         topbar.add(menuTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 8, 270, 40));
@@ -3129,6 +3138,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void menuDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDashboardMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_menuDashboardMouseClicked
+
+    private void btnProdukAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_btnProdukAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProdukAncestorAdded
    
     /**
      * @param args the command line arguments
